@@ -1,0 +1,82 @@
+import * as React from 'react';
+import {View, Text, Button, Image, Tab} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+function HomeScreen({navigation}) {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Profile"
+        onPress={() =>
+          navigation.navigate('Profile', {name: 'Custom profile header'})
+        }
+      />
+    </View>
+  );
+}
+// thêm logo vào góc trái trên cùng //
+// function LogoTitle() {
+//   return (
+//     <Image
+//       style={{width: 50, height: 50}}
+//       source={require('@expo/snack-static/react-native-logo.png')}
+//     />
+//   );
+// }
+function ProfileScreen({navigation}) {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text />
+      <Button title="Đăng nhập" onPress={() => navigation.push('Update')} />
+      <Button title="Đăng ký" onPress={() => navigation.push('Update')} />
+      <Button title="Go Back" onPress={() => navigation.goBack('')} />
+    </View>
+  );
+}
+
+function User() {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Home!</Text>
+    </View>
+  );
+}
+
+function Settings() {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Setting</Text>
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+        }}>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'My Home'}}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={({route}) => ({title: route.params.name})}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
